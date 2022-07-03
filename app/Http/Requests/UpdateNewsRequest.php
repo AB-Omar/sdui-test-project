@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateNewsRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateNewsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,12 @@ class UpdateNewsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            
+            'title' => [
+                'required', 'min:3', 'max:255',
+                \Illuminate\Validation\Rule::unique('news', 'title')->ignore($this->id)
+            ],
+            'content' => 'required|min:20',
         ];
     }
 }

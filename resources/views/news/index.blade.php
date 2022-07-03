@@ -42,17 +42,21 @@
                                 {{ $newsModel->title }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $newsModel->content }}
+                                {{ Str::substr( $newsModel->content, 0, 30 ) }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $newsModel->title }}
+                                {{ $newsModel->user->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $newsModel->title }}
+                                {{ $newsModel->created_at }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__('Edit') }}</a>
-                                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline px-1 py-1">{{ __('Delete')}}</a>
+                                <a href="{{ route('news.edit', $newsModel->id ) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__('Edit') }}</a>
+                                <form  method="POST" action="{{ route('news.destroy', $newsModel->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" onclick="doConfirm()" class="font-medium text-red-600 dark:text-red-500">{{ __('Delete')}}</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -62,3 +66,12 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+function doConfirm() {
+    if (!confirm("Are you sure to perform this action?")) {
+        event.preventDefault();
+        return false;
+    }
+    return true;
+}
+</script>

@@ -18,7 +18,7 @@ class NewsController extends Controller
         
         return view('news.index', [
 
-            'news' => News::paginate(10)
+            'news' => News::with('user')->paginate(10)
         ]);
     }
 
@@ -40,7 +40,10 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        //
+        //creating new news 
+        News::create($request->all());
+
+        return redirect(route('news.index'));
     }
 
     /**
@@ -51,7 +54,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+        exit();
     }
 
     /**
@@ -62,7 +65,9 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        //
+        return view('news.edit', [
+            'news' => $news
+        ]);
     }
 
     /**
@@ -74,7 +79,10 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        //
+        
+       $news->update($request->all());
+
+       return redirect(route('news.index'));
     }
 
     /**
@@ -85,6 +93,9 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        $news->delete();
+
+       return redirect(route('news.index'));
+
     }
 }
