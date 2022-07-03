@@ -26,7 +26,7 @@ class StoreNewsRequest extends FormRequest
         return [
             
             'title' => 'required|unique:news|max:255|min:3',
-            'content' => 'required|min:20',
+            'content' => 'required|min:6',
         ];
     }
 }

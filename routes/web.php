@@ -22,6 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/news', NewsController::class);
+
+Route::middleware(['auth'])->group(function () {
+    
+    Route::resource('/news', NewsController::class);
+});
 
 require __DIR__.'/auth.php';
