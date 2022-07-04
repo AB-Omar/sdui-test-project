@@ -23,6 +23,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+        
+        //creating admin user for testing purpose
         User::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
