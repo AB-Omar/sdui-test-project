@@ -18,10 +18,10 @@ class NewsFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->title,
-            'content' =>$this->faker->paragraph,
-            'user_id' => 1,
-            'created_at' => now(),
+
+            'title' => fake()->title,
+            'user_id' => User::all()->random()->id,
+            'content' => fake()->paragraph,
         ];
     }
 }

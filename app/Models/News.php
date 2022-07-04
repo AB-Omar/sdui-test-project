@@ -24,16 +24,16 @@ class News extends Model
     /**
      * The boot method.
     */
-    public static function boot() {
+    // public static function boot() {
 
-        parent::boot();
+    //     parent::boot();
     
-        self::creating(function ($model) {
+    //     self::creating(function ($model) {
     
-            $model->user_id = auth()->user()->id;
+    //         $model->user_id = auth()->user()->id;
     
-        });
-    }
+    //     });
+    // }
 
     public function scopeofUser($query){
 
