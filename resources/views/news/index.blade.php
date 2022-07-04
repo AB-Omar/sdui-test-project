@@ -61,8 +61,8 @@
                         </tr>
                     @endforeach
                 </tbody>
-                {{ $news->links() }}
             </table>
+            {{ $news->links() }}
         </div>
     </div>
 </x-app-layout>

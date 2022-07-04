@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewsCreated;
 use App\Models\News;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
@@ -41,9 +42,11 @@ class NewsController extends Controller
     public function store(StoreNewsRequest $request)
     {
         //creating new news 
-        auth()->user()->news()->create($request->all());
-        
+        $news = auth()->user()->news()->create($request->all());
         // News::create($request->all());
+
+        //firing the newsCreated Event
+        event(new NewsCreated($news));
 
         return redirect(route('news.index'));
     }
