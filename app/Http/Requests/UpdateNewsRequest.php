@@ -25,10 +25,9 @@ class UpdateNewsRequest extends FormRequest
     public function rules()
     {
         return [
-
             'title' => [
                 'required', 'min:3', 'max:255',
-                \Illuminate\Validation\Rule::unique('news', 'title')->ignore($this->id)
+                Rule::unique('news')->ignore(request()->segment(2))
             ],
             'content' => 'required|min:6',
         ];

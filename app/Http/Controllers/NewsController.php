@@ -41,7 +41,9 @@ class NewsController extends Controller
     public function store(StoreNewsRequest $request)
     {
         //creating new news 
-        News::create($request->all());
+        auth()->user()->news()->create($request->all());
+        
+        // News::create($request->all());
 
         return redirect(route('news.index'));
     }
